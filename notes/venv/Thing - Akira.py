@@ -1,10 +1,10 @@
- test_num = "6151359320238050"
+ old.csv = "6151359320238050"
 
 def reverse_it(string):
-    return
+    return string[0:15:]
 
  def validate(num: str):
      for index in range(len(num)):
          int_version = int(num(index))
 
-print(validate(test_num))
+print(validate(old.csv)
