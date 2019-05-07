@@ -7,4 +7,4 @@ def reverse_it(string):
      for index in range(len(num)):
          int_version = int(num(index))
 
-print(validate(old.csv)
+print(validate(old.csv))
