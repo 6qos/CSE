@@ -4,8 +4,8 @@ with open("Sales Records.csv", "r") as csv_file_thing:
     reader = csv.reader(csv_file_thing)
     for row in reader:
         thing = row[13]
-        print(thing)
+        # print(thing)
         fruit = row[2]
-        print(fruit)
-    if fruit == "Fruit":
-        print(Fruit)
+        # print(fruit)
+        if fruit == "Fruits":
+            print(thing)
