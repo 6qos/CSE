@@ -10,3 +10,4 @@ with open("Sales Records.csv", "r") as csv_file_thing:
         if fruit == "Fruits":
             print(thing)
             # print(fruit)
+            
