@@ -1,10 +1,13 @@
 class Room(object):
     # This is a constructor
-    def __init__(self, name, north=None, south=None, east=None, description="INSERT DESCRIPTION HERE"):
+    def __init__(self, name, north=None, south=None, east=None, west=None, up=None, down=None, description="INSERT DESCRIPTION HERE"):
         self.name = name
         self.north = north
         self.south = south
         self.east = east
+        self.west = west
+        self.up = up
+        self.down = down
         self.description = description
 
 
@@ -33,14 +36,23 @@ class Player(object):
 
 # These are the instances of the rooms (Instantiation)
 
-# Option 2 - Use Strings, but more difficult controller
-R19A = Room("Mr. Wiebe's Room", "parking_lot")
-parking_lot = Room("The Parking Lot", None, "R19A")
-Black_top = Room("The Black Top", None, "Blacktop")
-Gym = Room("The Gym", None, "Gym")
-Cafeteria = Room("The Cafeteria",None, "Cafeteria")
-Field = Room("The Field", None, "Field")
 
+# Option 2 - Use Strings, but more difficult controller
+R19A = Room("Mr. Wiebe's Room", 'parking_lot', None, None, None, None, None, "R19A")
+parking_lot = Room("The Parking Lot", 'Black_top', 'R19A', None, None, None, None, "Parking Lot")
+Black_top = Room("The Black Top", 'Gym', 'parking_lot', None, None, None, None, "Parking Lot")
+Gym = Room("The Gym", 'Cafeteria', "Black_top", None, None, None, None, "Gym")
+Cafeteria = Room("The Cafeteria", 'Field', 'Gym', None, None, None, None, "Cafeteria")
+Field = Room("The Field", 'Pool', 'Cafeteria', None, None, None, None, "Pool")
+Pool = Room("The Pool",None, "Pool")
+Auditorium =("The Auditorium", None, "Auditorium")
+Boys_Locker_Room = Room("Boys Locker Room", None, "Locker Room")
+Girls_Locker_Room = Room("Girls Lcoker Room", None, "Girls Locker Room")
+Computer_Lab = Room("The Computer Lab", None, "Computer Lab")
+Science_Lab = Room("The Science Room", None, "Science Lab")
+Bathrooms = Room("The Bathroom", None, "Bathroom")
+Weight_Room = Room("The Weight Room", None, "Weight Room")
+Storage_Room = Room("Storage Room",)
 player = Player(R19A)
 
 directions = ['north', 'south', 'east', 'west', 'up', 'down']
