@@ -1,36 +1,3 @@
-class Room(object):
-    # This is a constructor
-    def __init__(self, name, north=None, south=None, east=None, west=None):
-        self.name = name
-        self.north = north
-        self.south = south
-        self.east = east
-        self.west = west
-        self.description = "ENTER DESCRIPTION HERE"
-
-
-class Player(object):
-    def __init__(self, starting_location):
-        self.health = 100
-        self.inventory = []
-        self.current_location = starting_location
-
-    def move(self, new_location):
-        """
-
-        :param new_location:
-        """
-        self.current_location = new_location
-
-    def find_room(self, direction):
-        """
-
-        :param direction: A string (all lowercase), with a cardinal direction
-        :return: a room object if it exist, None if it does not
-        """
-        room_name = getattr(self.current_location, direction)
-        return globals()[room_name]
-
 class Items(object):
     def __init__(self, name):
         self.name = name
@@ -142,19 +109,19 @@ canoe = Sword("Canoe", 84)
 wiebe_armour = Armour("Armour of the Gods", "Gods Armour", 10000000000000000)
 
 
-rc = Character("orc", 100, Sword(sword), Armour, "Generic Armour")
-weibe = Character("weibe", 10000000, Sword(sword), Armour, "God Armour")
-
-orc.attack(weibe)
-weibe.attack(orc)
+orc = Character("orc", 100, Sword, Armour, "Generic Armour")
+weibe = Character("weibe", 10000000, Sword, Armour, "God Armour")
 
 class Room(object):
     # This is a constructor
-    def __init__(self, name, north=None, south=None, east=None, description="INSERT DESCRIPTION HERE"):
+    def __init__(self, name, north=None, south=None, east=None, west=None, up=None, down=None, description="INSERT DESCRIPTION HERE"):
         self.name = name
         self.north = north
         self.south = south
         self.east = east
+        self.west = west
+        self.up = up
+        self.down = down
         self.description = description
 
 
@@ -179,20 +146,26 @@ class Player(object):
         room_name = getattr(self.current_location, direction)
         return globals()[room_name]
 
-
-
 # These are the instances of the rooms (Instantiation)
 
-# Option 1 - Use the Variables, but fix later
-R19A = Room("Mr. Wiebe's Room")
-parking_lot = Room("The Parking Lot", None, R19A)
-
-R19A.north = parking_lot
-
 # Option 2 - Use Strings, but more difficult controller
-R19A = Room("Mr. Wiebe's Room", "parking_lot")
-parking_lot = Room("The Parking Lot", None, "R19A")
-
+R19A = Room("Mr. Wiebe's Room", 'parking_lot', None, None, None, None, None, "R19A")
+parking_lot = Room("The Parking Lot", 'Black_top', 'R19A', None, None, None, None, "Parking Lot")
+Black_top = Room("The Black Top", 'Gym', 'parking_lot', None, None, None, None, "Black Top")
+Gym = Room("The Gym", 'Cafeteria', "Black_top", None, None, None, None, "Gym")
+Cafeteria = Room("The Cafeteria", 'Field', 'Gym', None, None, None, None, "Cafeteria")
+Field = Room("The Field", 'Pool', 'Cafeteria', None, None, None, None, "Field")
+Pool = Room("The Pool", 'Auditorium', "Pool", None, None, None, None, "Pool")
+Auditorium =("The Auditorium", 'Boys_Locker_Room', 'Pool', None, None, None, None, "Auditorium")
+Boys_Locker_Room = Room("Boys Locker Room", 'Weight_Room', 'Auditorium', None, None, None, None, "Locker Room")
+Girls_Locker_Room = Room("Girls Lcoker Room", 'Pool', None, None, None, None, "Girls Locker Room")
+Computer_Lab = Room("The Computer Lab", 'Science_Lab', 'Field', None, None, None, None, "Computer Lab")
+Science_Lab = Room("The Science Room",'Bathrooms', 'Computer_Lab', None, None, None, None,  "Science Lab")
+Bathrooms = Room("The Bathroom", 'Boys_Locker_Room', 'Girls_locker_Room', None, None, None, None, "Bathroom")
+Weight_Room = Room("The Weight Room", 'Bathrooms', 'Boys_Locker_Room', None, None, None, None, "Weight Room")
+Storage_Room = Room("Storage Room", 'English_Classroom', 'Weight_Room', None, None, None, None, "Storage Room")
+English_Classroom = Room("English Classroom", None, 'Storage_Room', None, None, None, None, "English Classroom")
+Mathematics = Room("Math_Class", None, 'Emglish_Classroom', None, None, None, None, "Mathematics")
 player = Player(R19A)
 
 directions = ['north', 'south', 'east', 'west', 'up', 'down']
@@ -206,7 +179,7 @@ while playing:
     command = input("<_")
     if command.lower() in ['q', 'quit', 'exit', 'Q', 'Quit', 'Exit', 'E']:
         playing = False
-    elif command in direction:
+    elif command in directions:
         try:
             next_room = player.find_room(command)
             player.move(next_room)
@@ -215,7 +188,7 @@ while playing:
     else:
         print("Command not recognized")
 
-        player = Player("CLUB_ROOM")
+        player = Player("R19S")
         direction = ['north', 'south', 'east', 'west', 'up', 'down']
         playing = True
 
